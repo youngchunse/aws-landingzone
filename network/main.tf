@@ -104,6 +104,7 @@ resource "aws_subnet" "private_subnet" {
   tags = map(
     "Name", "${var.tags}-private_subnet",
     "kubernetes.io/cluster/${var.cluster_name}", "shared"
+    "kubernetes.io/role/internal-elb", 1
   )
 }
 
