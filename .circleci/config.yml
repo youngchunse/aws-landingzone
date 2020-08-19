@@ -28,7 +28,7 @@ terraform_init: &terraform_init
   run:
     name: terraform init
     command: |
-      cd product-a
+      cd app
       terraform init
 
 environment: &environment
