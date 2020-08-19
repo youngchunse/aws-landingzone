@@ -78,7 +78,7 @@ jobs:
 
 workflows:
   version: 2
-  Example_Workflow:
+  terraform-deploy:
     jobs:
       - plan
       - hold-apply:
