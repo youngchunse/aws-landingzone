@@ -155,26 +155,3 @@ resource "aws_security_group_rule" "bastion_egress" {
   cidr_blocks       = ["0.0.0.0/0"]
   security_group_id = aws_security_group.bastion_sg.id
 }
-
-
-data "aws_elb" "elb" {
-  name = var.lb_name
-}
-
-resource "aws_route53_zone" "primary" {
-  name = "app.young.com"
-}
-
-resource "aws_route53_record" "app" {
-  # Zone and name of Route53 record being managed.
-  zone_id = aws_route53_zone.primary.zone_id
-  name    = "app.young.com"
-  type    = "A"
-
-  alias {
-    # Target of Route53 alias.
-    name                   = data.aws_elb.elb.dns_name
-    zone_id                = data.aws_elb.elb.zone_id
-    evaluate_target_health = true
-  }
-}
