@@ -1,7 +1,6 @@
-version: 2.1`
+version: 2.1
 
 references:
-
 base_image: &base_image
    hashicorp/terraform:light
 
@@ -29,7 +28,7 @@ terraform_init: &terraform_init
   run:
     name: terraform init
     command: |
-      cd app
+      cd product-a
       terraform init
 
 environment: &environment
@@ -79,7 +78,7 @@ jobs:
 
 workflows:
   version: 2
-  terraform-deploy:
+  terraform_deploy:
     jobs:
       - plan
       - hold-apply:
