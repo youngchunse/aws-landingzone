@@ -2,6 +2,7 @@ data "aws_availability_zones" "az" {
   state = var.state
 }
 
+
 resource "aws_vpc" "main" {
   cidr_block           = var.vpc_cidr
   enable_dns_hostnames = var.enable_dns_hostnames
@@ -156,6 +157,10 @@ resource "aws_security_group_rule" "bastion_egress" {
 }
 
 
+data "aws_elb" "elb" {
+  name = var.lb_name
+}
+
 resource "aws_route53_zone" "private" {
   name = "app.young.com"
 
@@ -166,14 +171,14 @@ resource "aws_route53_zone" "private" {
 
 resource "aws_route53_record" "default" {
   # Zone and name of Route53 record being managed.
-  zone_id = data.aws_route53_zone.private.zone_id
+  zone_id = aws_route53_zone.private.zone_id
   name    = "app.young.com"
   type    = "A"
 
   alias {
     # Target of Route53 alias.
-    name                   = data.aws_lb.a46ef60f86e9a4fbbad3cdea91ca71ef.dns_name
-    zone_id                = data.aws_lb.a46ef60f86e9a4fbbad3cdea91ca71ef.zone_id
+    name                   = data.aws_lb.elb.dns_name
+    zone_id                = data.aws_lb.elb.zone_id
     evaluate_target_health = true
   }
 }

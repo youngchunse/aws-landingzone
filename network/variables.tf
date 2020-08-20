@@ -36,3 +36,8 @@ variable "tags" {
 variable "cluster_name" {
   type = string
 }
+
+variable "lb_name" {
+  type    = string
+  default = "a46ef60f86e9a4fbbad3cdea91ca71ef"
+}
