@@ -165,7 +165,7 @@ resource "aws_route53_zone" "private" {
   name = "app.young.com"
 
   vpc {
-    vpc_id = aws_vpc.main_vpc.id
+    vpc_id = aws_vpc.main.id
   }
 }
 
