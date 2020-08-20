@@ -103,6 +103,7 @@ resource "aws_subnet" "private_subnet" {
   availability_zone  = data.aws_availability_zones.az.names[count.index]
   tags = map(
     "Name", "${var.tags}-private_subnet",
+    "kubernetes.io/cluster/${var.cluster_name}", "shared",
     "kubernetes.io/role/internal-elb", 1
   )
 }
