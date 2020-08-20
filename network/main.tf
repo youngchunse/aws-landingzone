@@ -161,24 +161,20 @@ data "aws_elb" "elb" {
   name = var.lb_name
 }
 
-resource "aws_route53_zone" "private" {
+resource "aws_route53_zone" "primary" {
   name = "app.young.com"
-
-  vpc {
-    vpc_id = aws_vpc.main.id
-  }
 }
 
-resource "aws_route53_record" "default" {
+resource "aws_route53_record" "app" {
   # Zone and name of Route53 record being managed.
-  zone_id = aws_route53_zone.private.zone_id
+  zone_id = aws_route53_zone.primary.zone_id
   name    = "app.young.com"
   type    = "A"
 
   alias {
     # Target of Route53 alias.
-    name                   = data.aws_lb.elb.dns_name
-    zone_id                = data.aws_lb.elb.zone_id
+    name                   = data.aws_elb.elb.dns_name
+    zone_id                = data.aws_elb.elb.zone_id
     evaluate_target_health = true
   }
 }
