@@ -9,6 +9,7 @@ module "network" {
   enable_dns_hostnames    = var.vpc_dns_hostnames
   public_subnet_cidr      = var.public_subnet_cidr
   private_subnet_cidr     = var.private_subnet_cidr
+  database_subnet_cidr    = var.database_subnet_cidr
   map_public_ip_on_launch = var.map_public_ip_on_launch
   state                   = var.state
   tags                    = var.tags

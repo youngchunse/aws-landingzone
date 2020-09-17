@@ -27,6 +27,9 @@ variable "public_subnet_cidr" {
 variable "private_subnet_cidr" {
   type = list(string)
 }
+variable "database_subnet_cidr" {
+  type = list(string)
+}
 variable "map_public_ip_on_launch" {
   type = bool
 }

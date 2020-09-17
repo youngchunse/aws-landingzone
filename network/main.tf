@@ -13,6 +13,19 @@ resource "aws_vpc" "main" {
   )
 }
 
+resource "aws_acm_certificate" "lb_acm_cert" {
+  domain_name       = "youngexample.com"
+  validation_method = "DNS"
+
+  tags = {
+    Environment = var.tags
+  }
+
+  lifecycle {
+    create_before_destroy = true
+  }
+}
+
 resource "aws_internet_gateway" "igw" {
   vpc_id = aws_vpc.main.id
   tags = {
@@ -58,13 +71,6 @@ resource "aws_route_table" "private_rt" {
   }
 }
 
-#resource "aws_route" "public_route" {
-#  count                  = length(var.public_subnet_cidr)
-#  route_table_id         = aws_route_table.public_rt[count.index].id
-#  destination_cidr_block = "0.0.0.0/0"
-#  gateway_id             = aws_internet_gateway.igw.id
-#}
-
 resource "aws_route" "private_route" {
   count                  = length(var.private_subnet_cidr)
   route_table_id         = aws_route_table.private_rt[count.index].id
@@ -72,6 +78,14 @@ resource "aws_route" "private_route" {
   nat_gateway_id         = aws_nat_gateway.nat_gateway[count.index].id
 }
 
+resource "aws_route_table" "database_rt" {
+  count = length(var.database_subnet_cidr)
+  vpc_id = aws_vpc.main.id
+
+  tags = {
+    Name = "${var.tags}-database_rt"
+  }
+}
 
 resource "aws_route_table_association" "public" {
   count          = length(aws_subnet.public_subnet)
@@ -85,6 +99,12 @@ resource "aws_route_table_association" "private" {
   route_table_id = aws_route_table.private_rt[count.index].id
 }
 
+resource "aws_route_table_association" "database" {
+  count          = length(aws_subnet.database_subnet)
+  subnet_id      = aws_subnet.database_subnet[count.index].id
+  route_table_id = aws_route_table.database_rt[count.index].id
+}
+
 resource "aws_subnet" "public_subnet" {
   count                   = length(var.public_subnet_cidr)
   vpc_id                  = aws_vpc.main.id
@@ -93,7 +113,7 @@ resource "aws_subnet" "public_subnet" {
   map_public_ip_on_launch = var.map_public_ip_on_launch
   tags = map(
     "Name", "${var.tags}-public_subnet",
-    "kubernetes.io/cluster/${var.cluster_name}", "shared"
+    #"kubernetes.io/cluster/${var.cluster_name}", "shared"
   )
 }
 
@@ -109,16 +129,15 @@ resource "aws_subnet" "private_subnet" {
   )
 }
 
-#resource "aws_subnet" "db_subnet" {
-#  count              = length(var.db_subnet_cidr)
-#  vpc_id             = aws_vpc.main.id
-#  cidr_block         = element(var.db_subnet_cidr,count.index)
-#  availability_zone  = data.aws_availability_zones.az.names[count.index]
-#  tags = map(
-#    "Name", "${var.tags}-db_subnet",
-#    "kubernetes.io/cluster/${var.cluster_name}", "shared"
-#  )
-#}
+resource "aws_subnet" "database_subnet" {
+  count              = length(var.database_subnet_cidr)
+  vpc_id             = aws_vpc.main.id
+  cidr_block         = element(var.database_subnet_cidr,count.index)
+  availability_zone  = data.aws_availability_zones.az.names[count.index]
+  tags = map(
+    "Name", "${var.tags}-db_subnet",
+  )
+}
 
 resource "aws_security_group" "bastion_sg" {
   name        = "bastion_sg"
