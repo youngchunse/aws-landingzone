@@ -39,6 +39,6 @@ variable "state" {
 variable "bastion_instance_defaults" {
   type = map(any)
 }
-variable "key_pair_name" {
+variable "key_name" {
   type = string
 }

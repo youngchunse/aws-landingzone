@@ -4,7 +4,6 @@ bastion_instance_defaults = {
   instance_count              = 1
   ami                         = "ami-0e9089763828757e1"
   instance_type               = "t2.micro"
-  key_name                    = "eks_bastion_ssh"
   user_data                   = ""
   ebs_optimized               = false
   monitoring                  = false

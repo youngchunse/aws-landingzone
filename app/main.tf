@@ -19,13 +19,12 @@ module "network" {
 
 module "bastion" {
   source                      = "../ec2"
-  key_pair_name               = var.key_pair_name
+  key_name                    = var.key_name
   instance_count              = var.bastion_instance_defaults["instance_count"]
   ami                         = var.bastion_instance_defaults["ami"]
   instance_type               = var.bastion_instance_defaults["instance_type"]
   user_data                   = var.bastion_instance_defaults["user_data"]
   subnet_id                   = module.network.public_subnets
-  key_name                    = var.bastion_instance_defaults["key_name"]
   monitoring                  = var.bastion_instance_defaults["monitoring"]
   vpc_security_group_ids      = module.network.bastion_security_group_id
   iam_instance_profile        = var.bastion_instance_defaults["iam_instance_profile"]

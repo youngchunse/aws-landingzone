@@ -101,7 +101,7 @@ variable "create_key_pair" {
   default     = true
 }
 
-variable "key_pair_name" {
+variable "key_name" {
   description = "The name for the key pair."
   type        = string
   default     = null
