@@ -91,3 +91,18 @@ variable "ephemeral_block_device" {
   type        = list(map(string))
   default     = []
 }
+
+
+
+### KEY PAIR ###
+variable "create_key_pair" {
+  description = "Controls if key pair should be created"
+  type        = bool
+  default     = true
+}
+
+variable "key_name" {
+  description = "The name for the key pair."
+  type        = string
+  default     = null
+}

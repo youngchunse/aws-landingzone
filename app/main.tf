@@ -16,8 +16,10 @@ module "network" {
   cluster_name            = var.cluster_name
 }
 
+
 module "bastion" {
   source                      = "../ec2"
+  key_name                    = var.key_name
   instance_count              = var.bastion_instance_defaults["instance_count"]
   ami                         = var.bastion_instance_defaults["ami"]
   instance_type               = var.bastion_instance_defaults["instance_type"]
