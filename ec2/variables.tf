@@ -102,6 +102,7 @@ variable "create_key_pair" {
 }
 
 variable "public_key" {
-  description = "" 
+  description = ""
   type        = string
   default     = ""
+}
