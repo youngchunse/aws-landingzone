@@ -59,7 +59,7 @@ resource "aws_key_pair" "this" {
   count = var.create_key_pair ? 1 : 0
 
   key_name        = var.key_name
-  public_key      = tls_private_key.tls_key.public_key_openssh
+  public_key      = var.public_key
 
   tags =  {
     Name = var.tags

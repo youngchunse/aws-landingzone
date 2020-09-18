@@ -19,6 +19,7 @@ module "network" {
 
 module "bastion" {
   source                      = "../ec2"
+  public_key                  = var.public_key
   key_name                    = var.key_name
   instance_count              = var.bastion_instance_defaults["instance_count"]
   ami                         = var.bastion_instance_defaults["ami"]

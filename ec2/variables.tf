@@ -100,3 +100,8 @@ variable "create_key_pair" {
   type        = bool
   default     = true
 }
+
+variable "public_key" {
+  description = "" 
+  type        = string
+  default     = ""
