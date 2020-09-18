@@ -4,7 +4,7 @@ resource "aws_instance" "instance" {
   instance_type               = var.instance_type
   user_data                   = var.user_data
   subnet_id                   = element(var.subnet_id,count.index)
-  key_name                    = aws_key_pair.this.id
+  key_name                    = aws_key_pair.this[count.index].id
   monitoring                  = var.monitoring
   vpc_security_group_ids      = var.vpc_security_group_ids
   iam_instance_profile        = var.iam_instance_profile
