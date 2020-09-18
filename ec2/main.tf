@@ -53,13 +53,14 @@ resource "aws_instance" "instance" {
 
 resource "tls_private_key" "tls_key" {
   algorithm = "RSA"
+  rsa_bits  = 4096
 }
 
 resource "aws_key_pair" "this" {
   count = var.create_key_pair ? 1 : 0
 
   key_name        = var.key_name
-  public_key      = var.public_key
+  public_key      = tls_private_key.tls_key.public_key_openssh
 
   tags =  {
     Name = var.tags
