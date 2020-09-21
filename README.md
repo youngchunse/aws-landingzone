@@ -36,3 +36,5 @@ Set values for these 3 variables:
           tags                    = var.tags
           cluster_name            = var.cluster_name
       }
+
+## Bastion Host
