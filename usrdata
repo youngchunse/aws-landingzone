@@ -19,4 +19,11 @@ kubectl version --short --client
 
 aws eks --region us-east-1 update-kubeconfig --name flask_app
 
-kubectl create secret generic server_side_secret --from-literal=JWT_SECRET=thisIsMySecretKeyForJWT*@.[123
+kubectl create secret generic server-side-secret --from-literal=JWT_SECRET=thisIsMySecretKeyForJWT*@.[123
+
+docker image build -t youngwoochun/custom-docker-images:todo-client-kubernetes-app .
+docker push youngwoochun/custom-docker-images:todo-client-kubernetes-app
+docker image build -t youngwoochun/custom-docker-images:todo-server-kubernetes-app .
+docker push youngwoochun/custom-docker-images:todo-server-kubernetes-app
+
+a7fd333a884b4489f9a3e8e399e7ce1a-95974680.us-east-1.elb.amazonaws.com:30605
