@@ -28,13 +28,13 @@ variable "enable_dns_support" {
 variable "create_igw" {
   description = "Controls if IGW should be created"
   type        = bool
-  default     = true
+  default     = false
 }
 
 variable "enable_nat_gateway" {
   description = "Controls if Nat Gateways should be created"
   type        = bool
-  default     = true
+  default     = false
 }
 
 variable "public_subnet_cidr" {

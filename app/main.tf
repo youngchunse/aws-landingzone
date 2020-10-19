@@ -1,7 +1,7 @@
 provider "aws" {
   region = var.region
 }
-module "vpc1" {
+module "app1_vpc" {
   source                  = "../network"
   localip                 = var.localip
   vpc_cidr                = var.vpc_1["vpc_cidr"]
@@ -13,10 +13,9 @@ module "vpc1" {
   map_public_ip_on_launch = var.vpc_1["map_public_ip_on_launch"]
   state                   = var.vpc_1["state"]
   tags                    = var.vpc_1["tags"]
-  cluster_name            = var.vpc_1["cluster_name"]
 }
 
-module "vpc2" {
+module "app2_vpc" {
   source                  = "../network"
   localip                 = var.localip
   vpc_cidr                = var.vpc_2["vpc_cidr"]
@@ -28,7 +27,6 @@ module "vpc2" {
   map_public_ip_on_launch = var.vpc_2["map_public_ip_on_launch"]
   state                   = var.vpc_2["state"]
   tags                    = var.vpc_2["tags"]
-  cluster_name            = var.vpc_2["cluster_name"]
 }
 
 
