@@ -23,7 +23,7 @@ resource "aws_internet_gateway" "igw" {
 }
 
 resource "aws_eip" "nat_eip" {
-  count = length(var.public_subnet_cidr) : 0
+  count = length(var.public_subnet_cidr)
   vpc   = true
   tags = {
     Name = "${var.tags}-nat_eip"

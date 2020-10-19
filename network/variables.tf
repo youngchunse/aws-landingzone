@@ -35,6 +35,7 @@ variable "enable_nat_gateway" {
   description = "Controls if Nat Gateways should be created"
   type        = bool
   default     = true
+}
 
 variable "public_subnet_cidr" {
   description = "A list of public subnets inside the VPC"

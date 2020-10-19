@@ -30,9 +30,9 @@ output "database_subnets" {
 
 output "database_subnet_ip" {
   description = "CIDR blocks of the created database subnets"
-
   value = aws_subnet.database_subnet.*.cidr_block
 }
+
 output "bastion_security_group_id" {
   description = "The ID of the bastion sg"
   value = aws_security_group.bastion_sg.*.id
