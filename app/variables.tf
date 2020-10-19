@@ -14,6 +14,10 @@ variable "vpc_2" {
   type = map(any)
 }
 
+variable "egress_vpc" {
+  type = map(any)
+}
+
 variable "bastion_instance_defaults" {
   type = map(any)
 }

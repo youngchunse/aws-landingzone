@@ -29,6 +29,22 @@ module "app2_vpc" {
   tags                    = var.vpc_2["tags"]
 }
 
+module "egress_vpc" {
+  source                  = "../network"
+  localip                 = var.localip
+  enable_nat_gateway      = var.egress_vpc["enable_nat_gateway"]
+  create_igw              = var.egress_vpc["create_igw"]
+  vpc_cidr                = var.egress_vpc["vpc_cidr"]
+  enable_dns_support      = var.egress_vpc["vpc_dns_support"]
+  enable_dns_hostnames    = var.egress_vpc["vpc_dns_hostnames"]
+  public_subnet_cidr      = var.egress_vpc["public_subnet_cidr"]
+  private_subnet_cidr     = var.egress_vpc["private_subnet_cidr"]
+  database_subnet_cidr    = var.egress_vpc["database_subnet_cidr"]
+  map_public_ip_on_launch = var.egress_vpc["map_public_ip_on_launch"]
+  state                   = var.egress_vpc["state"]
+  tags                    = var.egress_vpc["tags"]
+}
+
 
 #module "ec2" {
 #  source                      = "../ec2"
