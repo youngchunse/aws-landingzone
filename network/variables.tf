@@ -66,7 +66,8 @@ variable "tags" {
 }
 
 variable "cluster_name" {
-  type = string
+  type    = string
+  default = ""
 }
 
 variable "localip" {

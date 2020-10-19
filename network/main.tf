@@ -2,7 +2,6 @@ data "aws_availability_zones" "az" {
   state = var.state
 }
 
-
 resource "aws_vpc" "main" {
   count                = var.create_vpc ? 1 : 0
   cidr_block           = var.vpc_cidr
