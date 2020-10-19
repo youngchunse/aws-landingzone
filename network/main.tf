@@ -4,6 +4,7 @@ data "aws_availability_zones" "az" {
 
 
 resource "aws_vpc" "main" {
+  count                = var.create_vpc ? 1 : 0
   cidr_block           = var.vpc_cidr
   enable_dns_hostnames = var.enable_dns_hostnames
   enable_dns_support   = var.enable_dns_support
@@ -13,20 +14,8 @@ resource "aws_vpc" "main" {
   )
 }
 
-resource "aws_acm_certificate" "lb_acm_cert" {
-  domain_name       = "youngexample.com"
-  validation_method = "DNS"
-
-  tags = {
-    Environment = var.tags
-  }
-
-  lifecycle {
-    create_before_destroy = true
-  }
-}
-
 resource "aws_internet_gateway" "igw" {
+  count  = var.create_igw && var.create_vpc && length(var.public_subnet_cidr) > 0 ? 1 : 0
   vpc_id = aws_vpc.main.id
   tags = {
     Name = "${var.tags}-igw"
@@ -34,7 +23,7 @@ resource "aws_internet_gateway" "igw" {
 }
 
 resource "aws_eip" "nat_eip" {
-  count = length(var.public_subnet_cidr)
+  count = length(var.public_subnet_cidr) : 0
   vpc   = true
   tags = {
     Name = "${var.tags}-nat_eip"
@@ -42,7 +31,7 @@ resource "aws_eip" "nat_eip" {
 }
 
 resource "aws_nat_gateway" "nat_gateway" {
-  count         = length(var.public_subnet_cidr)
+  count         = var.create_vpc && var.enable_nat_gateway ? length(var.public_subnet_cidr) : 0
   allocation_id = aws_eip.nat_eip[count.index].id
   subnet_id     = aws_subnet.public_subnet[count.index].id
   depends_on    = [aws_internet_gateway.igw]

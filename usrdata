@@ -16,12 +16,3 @@ curl -o kubectl https://amazon-eks.s3.us-west-2.amazonaws.com/1.17.9/2020-08-04/
 chmod +x ./kubectl
 sudo mv ./kubectl /usr/local/bin
 kubectl version --short --client
-
-aws eks --region us-east-1 update-kubeconfig --name flask_app
-
-kubectl create secret generic server-side-secrets --from-literal=JWT_SECRET=thisIsMySecretKeyForJWT*@.[123
-
-docker image build -t youngwoochun/custom-docker-images:todo-client-kubernetes-app .
-docker push youngwoochun/custom-docker-images:todo-client-kubernetes-app
-docker image build -t youngwoochun/custom-docker-images:todo-server-kubernetes-app .
-docker push youngwoochun/custom-docker-images:todo-server-kubernetes-app
