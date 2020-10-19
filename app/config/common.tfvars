@@ -29,3 +29,4 @@ egress_vpc = {
   create_igw          = true
   map_public_ip_on_launch = true
   state                   = "available"
+}
