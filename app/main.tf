@@ -1,7 +1,7 @@
 provider "aws" {
   region = var.region
 }
-module "app1_vpc" {
+module "network" {
   source                  = "../network"
   localip                 = var.localip
   vpc_cidr                = var.vpc_1["vpc_cidr"]
